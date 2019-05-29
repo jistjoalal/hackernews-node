@@ -27,8 +27,22 @@ function post(parent, args, ctx, info) {
   });
 }
 
+async function vote(parent, args, ctx, info) {
+  const userId = getUserId(ctx);
+  const linkExists = await ctx.prisma.$exists.vote({
+    user: { id: userId },
+    link: { id: args.linkId }
+  });
+  if (linkExists) throw new Error(`Already voted on link: ${args.linkId}`);
+  return ctx.prisma.createVote({
+    user: { connect: { id: userId } },
+    link: { connect: { id: args.linkId } }
+  });
+}
+
 module.exports = {
   signup,
   login,
-  post
+  post,
+  vote
 };
