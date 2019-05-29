@@ -9,20 +9,6 @@ let links = [
   }
 ];
 
-// typeDefs define GraphQL schema
-const typeDefs = `
-  type Query {
-    info: String!
-    feed: [Link!]!
-  }
-
-  type Link {
-    id: ID!
-    description: String!
-    url: String!
-  }
-`;
-
 // resolvers define schema implementation
 const resolvers = {
   Query: {
@@ -33,7 +19,7 @@ const resolvers = {
 
 // pass both to server
 const server = new GraphQLServer({
-  typeDefs,
+  typeDefs: "./src/schema.graphql",
   resolvers
 });
 server.start(() => console.log(`server online @ http://localhost:4000`));
