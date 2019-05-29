@@ -10,7 +10,8 @@ async function feed(parent, args, ctx, info) {
   const links = await ctx.prisma.links({
     where,
     skip: args.skip,
-    first: args.first
+    first: args.first,
+    orderBy: args.orderBy
   });
   return links;
 }
