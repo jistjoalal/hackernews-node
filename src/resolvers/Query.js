@@ -13,7 +13,11 @@ async function feed(parent, args, ctx, info) {
     first: args.first,
     orderBy: args.orderBy
   });
-  return links;
+  const count = await ctx.prisma
+    .linksConnection({ where })
+    .aggregate()
+    .count();
+  return { links, count };
 }
 
 module.exports = {
