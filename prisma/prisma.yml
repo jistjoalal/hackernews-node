@@ -1,6 +1,10 @@
-#endpoint: ""endpoint: https://us1.prisma.sh/jistjoalal/hackernews-jist/dev
+#endpoint: ""
+endpoint: https://us1.prisma.sh/jistjoalal/hackernews-jist/dev
 
 datamodel: datamodel.prisma
 generate:
   - generator: javascript-client
     output: ../src/generated/prisma-client
+hooks:
+  post-deploy:
+    - prisma generate
